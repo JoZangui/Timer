@@ -1,0 +1,118 @@
+#:kivy 2.0.0
+
+
+<MainMenuScreen>:
+    BoxLayout:
+        orientation:'horizontal'
+        
+        Label:
+            text: "Press 'C' to open clock\n\n and 'T' to open timer"
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '20dp'
+            color: 1, 0, 0, 1
+
+<ClockScreen>:
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            id: text_hour
+            size_hint_x: .5
+            text: root.hour
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 1, 0, 0, 1
+        Label:
+            size_hint_x: .1
+            text: ':'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 1, 0, 0, 1
+        Label:
+            id: text_minute
+            size_hint_x: .5
+            text: root.minute
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 1, 0, 0, 1
+        Label:
+            size_hint_x: .1
+            text: ':'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 1, 0, 0, 1
+        Label:
+            id: text_second
+            size_hint_x: .5
+            text: root.second
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 1, 0, 0, 1
+
+<TimerScreen>:
+    label_hour: text_hour
+    label_minute: text_minute
+    label_second: text_second
+    label_first_colon: first_colon
+    label_second_colon: second_colon
+
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            id: text_hour
+            size_hint_x: .5
+            text: '0'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 1, 0, 0
+        Label:
+            id: first_colon
+            size_hint_x: .1
+            text: ':'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 178, 190, 181
+        Label:
+            id: text_minute
+            size_hint_x: .5
+            text: '0'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 178, 190, 181
+        Label:
+            id: second_colon
+            size_hint_x: .1
+            text: ':'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 178, 190, 181
+        Label:
+            id: text_second
+            size_hint_x: .5
+            text: '0'
+            font_name: 'first_app/fonts/Lcd.ttf'
+            font_size: '80dp'
+            color: 178, 190, 181
+
+
+<MessageBox>:
+    auto_dismiss: False
+    size_hint: 1, 1
+    title: 'Quit'
+    separator_height: '0dp'
+    
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Deseja fechar o timer?!'
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: '10dp'
+            Button:
+                text: 'Ok'
+                size_hint: 1, .8
+                on_press: app.stop()
+            Button:
+                text: 'Cancel'
+                size_hint: 1, .8
+                on_press: root.dismiss()
