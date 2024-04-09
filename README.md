@@ -37,7 +37,7 @@ Quando o tempo terminar o temporizador irá emitir um som, para parar basta prec
 
 <div style="display: flex">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png" width="35" title="Python">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" width="35" title="CSS">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" width="35" title="Kivy">
 
 </div>
 
