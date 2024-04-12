@@ -16,7 +16,7 @@ class ClockScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         k_prope.Clock.schedule_interval(self.update, 1)
-    
+
     hour = k_prope.ObjectProperty('0')
     minute = k_prope.ObjectProperty('0')
     second = k_prope.ObjectProperty('0')
@@ -28,7 +28,7 @@ class ClockScreen(Screen):
 
 
 class TimerScreen(Screen):
-    
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -49,7 +49,7 @@ class TimerScreen(Screen):
     label_hour = k_prope.ObjectProperty(None)
     label_minute = k_prope.ObjectProperty(None)
     label_second = k_prope.ObjectProperty(None)
-    
+
     label_first_colon = k_prope.ObjectProperty(None)
     label_second_colon = k_prope.ObjectProperty(None)
 
@@ -99,7 +99,7 @@ class TimerScreen(Screen):
         """ go to next element """
         for element in time_elements:
             element.color = (178, 190, 181)
-        
+
         if self.index < 2:
             self.index += 1
         time_elements[self.index].color = (1, 0, 0)
@@ -108,7 +108,7 @@ class TimerScreen(Screen):
         """ go to previous element """
         for element in time_elements:
             element.color = (178, 190, 181)
-        
+
         if self.index > 0:
             self.index -= 1
         time_elements[self.index].color = (1, 0, 0)
@@ -118,7 +118,7 @@ class TimerScreen(Screen):
         hour = int(self.label_hour.text)
         minute = int(self.label_minute.text)
         second = int(self.label_second.text)
-        
+
         if self.index == 0 and hour < 24:
             self.label_hour.text = str(hour + 1)
         elif self.index == 1 and minute < 59:

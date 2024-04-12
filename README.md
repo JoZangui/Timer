@@ -6,6 +6,8 @@
 * [Funcionalidades](#funcionalidades)
 * [Aplicação](#aplicação)
 * [Ferramentas usadas](#ferramentas-usadas)
+* [Código fonte (python)](#código-fonte-python)
+* [Código fonte kivy](#código-fonte-kivy)
 * [Acesso ao projecto](#acesso-ao-projecto)
 * [Abrir e rodar o projecto](#abrir-e-rodar-o-projecto)
 * [Desenvolvedor](#desenvolvedor)
@@ -38,10 +40,38 @@ Quando o tempo terminar o temporizador irá emitir um som, para parar basta prec
 <div style="display: flex">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png" width="35" title="Python">
     <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" width="35" title="Kivy">
-
 </div>
 
 ### Python / Kivy
+
+---
+## Código fonte (python)
+---
+### ClockScreen(Screen)
+
+`ClockScreen` é uma instância da classe Screen, ela nos permite criar uma janela na aplicação. Usamos ela para criar uma janela tanto para o relógio como para o temporizador. Você pode ler mais sobre [Screen](https://kivy.org/doc/stable/api-kivy.modules.screen.html#module-kivy.modules.screen) na documentação do Kivy.
+
+Usamos a função Kivy: `schedule_interval()` para actualizar as informações na nossa aplicação, no caso o tempo, isto dentro de um respectivo intervalo, ela recebe como argumento a função `self.update` (que é responsável por actualizar as informações de hora, minuto e segundo), e o intervalo da actualização, neste caso 1 segundo.
+
+A nossa class tem como atributos: `hour`, `minute` e `second` cada uma delas faz referência a uma label presente em `main.kv`, essa referência é feita através de `ObjectProperty`. Essas labels são responsáveis por apresentar as informações na tela. você pode ver mais sobre isso na sessão [Código fonte (kivy)](#código-fonte-kivy).
+
+```python
+class ClockScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        k_prope.Clock.schedule_interval(self.update, 1)
+
+    hour = k_prope.ObjectProperty('0')
+    minute = k_prope.ObjectProperty('0')
+    second = k_prope.ObjectProperty('0')
+
+    def update(self, *args):
+        self.hour = str(datetime.now().hour)
+        self.minute = str(datetime.now().minute)
+        self.second = str(datetime.now().second)
+```
+---
+### TimerScreen(Screen)
 
 ---
 ## Acesso ao projecto
