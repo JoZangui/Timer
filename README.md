@@ -16,12 +16,12 @@
 ## Descrição do projecto
 
 Temporizador e relógio digital para ajudar na produtividade e na qualidade de vida do desenvolvedor.
-Tendo em mente aprender Kivy, decidi criar um Temporizador. Essa ideia surgiu na necessidade de um temporizador para controlar o tempo em que fico codando, visto que o Ubuntu não tem um temporizador decidi criar este enquanto aprendia kivy, por favor fiquem avontade para explorar este simples projecto.
+Tendo em mente aprender Kivy, decidi criar um Temporizador. Essa ideia surgiu na necessidade de um temporizador para controlar o tempo em que fico codando, visto que o Ubuntu não tem um temporizador, eu decidi criar este enquanto aprendia kivy, sim, quando comecei eu estava usando ubuntu, agora estou usando Windows outra vez, por favor fiquem avontade para explorar este simples projecto.
 
 ---
 ## Funcionalidades
 
-`Funcionalidade 1:` Podemos mudar entre relógio e o temporizador através do teclado, `T` para o temporizador e `C` para o relógio.
+`Funcionalidade 1:` Podemos mudar entre o relógio e o temporizador através das teclas: **T** para o temporizador e **C** para o relógio.
 
 `Funcionalidade 2:`
 ### Temporizador
