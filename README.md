@@ -104,7 +104,7 @@ exceto evento `go_to_timer()` que é habilitado aqui.
 Você pode ver mais sobre `go_to_timer()` [na documentação do Kivy](https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html)
 
 # Métodos de definição de tempo e estado de temporizador
-Esses métodos são usados para controlar o temporizador, como por exemplo: aumentar e reduzir o tempo, selecionar entre hora, minuto e segundo, e por consequência mudar o estado do temporizador para rodando, parado ou pausado. Eles são na maioria usados em [eventos de teclados](#_keyboard_closed).
+Esses métodos são usados para controlar o temporizador, como por exemplo: aumentar e reduzir o tempo, selecionar entre hora, minuto e segundo, e por consequência mudar o estado do temporizador para rodando, parado ou pausado. Eles são na maioria usados em [eventos de teclados](#_on_keyboard_down).
 
 ## _set_elements_color()
 `_set_elements_color()` é usado para definir a cor dos elementos do temporizador, ele recebe como argumento a cor a ser definida
