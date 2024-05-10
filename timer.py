@@ -35,7 +35,7 @@ class TimerScreen(Screen):
         self.sound = SoundLoader.load('audio/mixkit-vintage-warning-alarm-990.ogg')
         self.sound.loop = True
         self.sound.volume = .07
-        # Índice do elemento selecionado (hora - 0, minuto - 1, segundo - 2)
+        # Índice do elemento selecionado (hora -> 0, minuto -> 1, segundo -> 2)
         self.index = 0
 
         self._keyboard = Window.request_keyboard(
@@ -74,12 +74,12 @@ class TimerScreen(Screen):
             É disparado quando a tela é exibida: isto é, quando a animação de entrada está concluída.
             
             Usamos aqui para habilitar todos os eventos de teclado quando entramos na tela do temporizador,
-            excepto o evento _go_to_timer
+            excepto o evento go_to_timer
 
             ver: https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html
         """
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
-        self._keyboard.unbind(on_key_down=self._go_to_timer)
+        self._keyboard.unbind(on_key_down=self.go_to_timer)
 
     def on_pre_leave(self, *args):
         """
@@ -88,13 +88,13 @@ class TimerScreen(Screen):
             É disparado quando a tela está prestes a ser removida: isto é, quando a animação de saída é iniciada.
         
             Usamos aqui para desabilitar todos os eventos de teclado ao sairmos da tela do temporizador para a tela do relógio,
-            exceto evento _go_to_timer
+            exceto evento go_to_timer
 
             ver: https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html
         """
 
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
-        self._keyboard.bind(on_key_down=self._go_to_timer)
+        self._keyboard.bind(on_key_down=self.go_to_timer)
 
 
     # funções para configurar o temporizador
@@ -109,7 +109,7 @@ class TimerScreen(Screen):
         for element in time_elements:
             element.color = color
 
-    def next_element(self, time_elements):
+    def next_element(self, time_elements:tuple):
         """
         vai para o próximo elemento do temporizador
 
@@ -128,7 +128,7 @@ class TimerScreen(Screen):
         # configura a cor do elemento para vermelho
         time_elements[self.index].color = (1, 0, 0)
 
-    def previous_element(self, time_elements):
+    def previous_element(self, time_elements:tuple):
         """
         vai para o próximo elemento do temporizador
 
@@ -173,8 +173,8 @@ class TimerScreen(Screen):
         elif self.index == 2 and second > 0:
             self.label_second.text = str(second - 1)
 
-    def _start_timer(self, time_elements):
-        # inicia o temporizador
+    def start_timer(self, time_elements:tuple):
+        """ inicia o temporizador """
         if (sum(map(lambda element: int(element.text), time_elements)) > 0):
             self._time_is_running = k_prope.Clock.schedule_interval(self.countdown, 1)
 
@@ -187,9 +187,8 @@ class TimerScreen(Screen):
             self.label_first_colon.color = (1,0,0)
             self.label_second_colon.color = (1,0,0)
 
-    def _stop_timer(self, time_elements):
-        # para o timer
-
+    def stop_timer(self, time_elements:tuple):
+        """ para o timer """
         k_prope.Clock.unschedule(self.countdown)
 
         for element in time_elements:
@@ -211,14 +210,12 @@ class TimerScreen(Screen):
         self.label_first_colon.color = (178, 190, 181)
         self.label_second_colon.color = (178, 190, 181)
 
-    def _pause_timer(self):
-        # pausar ou retornar o temporizador
-
+    def pause_timer(self):
+        """ pausar ou retornar o temporizador """
+        # pausa o timer se estiver rodando
         if self._time_is_running != None:
-            # pausa o timer se estiver rodando
             self._time_is_running = k_prope.Clock.unschedule(self.countdown)
-        else:
-            # retorna se não estiver rodando
+        else: # retorna se não estiver rodando
             self._time_is_running = k_prope.Clock.schedule_interval(self.countdown, 1)
 
 
@@ -229,7 +226,12 @@ class TimerScreen(Screen):
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        """
+        Essa função executara uma ação com base na tecla pressionada
 
+        Você pode pesquisar por _on_keyboard_down e _keyboard_closed na documentação do Kivy em:
+        https://kivy.org/doc/stable/api-kivy.core.window.html
+        """
         time_elements = (
             self.label_hour,
             self.label_minute,
@@ -249,28 +251,27 @@ class TimerScreen(Screen):
                 self.decrease_time()
 
             if keycode[1] == 'enter':
-                self._start_timer(time_elements=time_elements)
+                self.start_timer(time_elements=time_elements)
         else:
             if keycode[1] == 'enter':
-                self._stop_timer(time_elements=time_elements)
+                self.stop_timer(time_elements=time_elements)
 
             if keycode[1] == 'spacebar':
-                self._pause_timer()
+                self.pause_timer()
 
         if keycode[1] == 'escape':
             message_box = MessageBox()
             message_box.open()
-            # keyboard.release()
 
+        # muda para o relógio
         if text == 'c':
-            # muda para o relógio
             self.manager.current = 'Clock'
             self.manager.transition.direction = 'left'
 
 
         return True
 
-    def _go_to_timer(self, keyboard, keycode, text, modifiers):
+    def go_to_timer(self, keyboard, keycode, text, modifiers):
         if text == 't':
             # go to timer screen
             self.manager.current = 'Timer'
@@ -283,13 +284,14 @@ class TimerScreen(Screen):
         return True
 
 
-    # counter
+    # contagem regressiva
     def countdown(self, dt):
-        """ count the time """
+        """ Responsável por reduzir o tempo no temporizador """
         hour = int(self.label_hour.text)
         minute = int(self.label_minute.text)
         second = int(self.label_second.text)
 
+        # vai reduzindo o tempo enquanto hora, minuto ou segundo for maior que zero
         if second > 0:
             self.label_second.text = str(second - 1)
         elif minute > 0:
@@ -300,6 +302,7 @@ class TimerScreen(Screen):
             self.label_minute.text = '59'
             self.label_second.text = '59'
 
+        # quando hora, minuto e segundo forem igual a zero ele para e reproduz o som de alarme
         if sum((hour, minute, second)) == 0:
             k_prope.Clock.unschedule(self.countdown)
 
