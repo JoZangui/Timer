@@ -27,7 +27,7 @@ Tendo em mente aprender Kivy, decidi criar um Temporizador. Essa ideia surgiu na
 ### Temporizador
 O tempo no temporizador é ajustado usando o teclado, seta _**esquerda**_ e _**direita**_ para navegar entre hora, minuto e segundo, as setas _**para cima**_ e _**para baixo**_ são usadas para aumentar ou diminuir o tempo, _**Enter**_ é usado para iniciar e para parar o tempo, _**Espaço**_ é usado para pausar e continuar, _**Esc**_ para fechar a aplicação.
 
-Quando o tempo terminar o temporizador irá emitir um som, para parar basta precionar _**Enter**_.
+Quando o tempo terminar o temporizador irá emitir um som, para parar basta pressionar _**Enter**_.
 
 ---
 ## Aplicação
